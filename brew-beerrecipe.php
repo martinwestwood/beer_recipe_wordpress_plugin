@@ -21,6 +21,7 @@ function get_beerrecipe_url() { return BEERRECIPE_URL; }
 include_once(BEERRECIPE_DIR.'php/posttypes.php');
 include_once(BEERRECIPE_DIR.'php/taxonomies.php');
 include_once(BEERRECIPE_DIR.'php/shortcodes.php');
+include_once(BEERRECIPE_DIR.'php/metabox.php');
 
 // Register taxonomies, shortcodes and insert terms on plugin activation
 add_action( 'init', 'create_beer_recipe_post_type' );

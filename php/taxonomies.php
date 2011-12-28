@@ -20,7 +20,7 @@ function register_taxonomy_grains() {
 	'labels' 			=> $labels,
 	'public'			=> true,
 	'show_in_nav_menus' => true,
-	'show_ui' 			=> true,
+	'show_ui' 			=> false,
 	'show_tagcloud' 	=> false,
 	'hierarchical'	 	=> true,
 	
