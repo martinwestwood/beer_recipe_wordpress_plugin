@@ -32,6 +32,6 @@ function create_beer_recipe_post_type() {
 		'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'comments', 'revisions' ),
 		'taxonomies' => array( 'category' )
 	  );
-	register_post_type( 'brew_beer_recipe', $args);
+	register_post_type( 'beer_recipe', $args);
 }
 ?>

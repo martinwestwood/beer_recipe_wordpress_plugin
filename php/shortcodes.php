@@ -1,11 +1,11 @@
 <?php
-function brew_add_shortcodes() {
+function register_brewdetectives_shortcodes() {
 	add_shortcode('beer_recipes', 'beer_recipes');
 }
 
 function beer_recipes( $atts ) {
 	extract( shortcode_atts( array(), $atts ) );
-	$args = array( 'post_type' => 'brew_beer_recipe', 'posts_per_page' => 10 );
+	$args = array( 'post_type' => 'beer_recipe', 'posts_per_page' => 10 );
 	$sq = new WP_Query( $args );
     if ($sq->have_posts()) :
 	$out = '<ul class="post_list">'; ?>

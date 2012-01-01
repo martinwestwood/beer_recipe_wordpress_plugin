@@ -1,0 +1,23 @@
+/*
+ * -----------------------------
+ * IE Fixes
+ * ----------------------------- 
+ */
+ 
+#recipress table.form-table ul.table input,
+#recipress table.form-table ul.table select,
+#recipress table.form-table ul.table textarea {
+	width:95%;
+	min-width:95%;
+	max-width:95%;
+}
+
+#recipress input,
+#recipress_options input {
+	height:18px !important;
+}
+
+#recipress textarea,
+#recipress_options textarea {
+	height:81px !important;
+}

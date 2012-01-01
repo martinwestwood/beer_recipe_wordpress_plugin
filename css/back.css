@@ -1,0 +1,371 @@
+@import url(http://fonts.googleapis.com/css?family=Ubuntu:400,700,400italic,700italic);
+		
+.clear { 
+	clear:both !important;
+	height:0 !important;
+	width:100% !important;
+	padding:0 !important;
+	margin:0 !important;
+	float:none !important;
+	background:none !important;
+	line-height:0 !important;
+	font-size:1px !important;
+	}
+	
+/*
+ * -----------------------------
+ * Meta Box
+ * ----------------------------- 
+ */
+#beer-recipe .inside,
+#beer-recipe_options .inside {
+	background:#e0e0e0 url(../img/texture.jpg);
+	margin:0;
+	padding:10px 20px;
+	border-top:1px solid rgba(255,255,255,.5);
+	font:14px/30px Ubuntu, sans-serif;
+	color:#555;
+}
+
+#hasRecipe_box {
+	margin:0 0 20px !important;
+	font:bold 18px/30px Ubuntu, sans-serif !important;
+}
+
+#hasRecipe_box input {
+	display:block;
+	margin:10px 10px 0 0;
+	float:left;
+}
+
+#beer-recipe table.form-table {
+	margin:0;
+}
+
+#beer-recipe .form-table th, 
+#beer-recipe .form-table td,
+#beer-recipe_options .form-table th,
+#beer-recipe_options .form-table td {
+	padding:0 0 15px;
+	margin:0;
+	min-height:30px;
+	text-shadow:none;
+}
+
+#beer-recipe .description,
+#beer-recipe_options .description {
+	color:#777;
+	font-family:Ubuntu, sans-serif;
+	display:inline-block;
+	vertical-align:top;
+	line-height:30px;
+}
+
+#beer-recipe input[type=radio],
+#beer-recipe input[type=checkbox],
+#beer-recipe_options input[type=radio],
+#beer-recipe_options input[type=checkbox] {
+	margin-right:5px;
+}
+
+#beer-recipe input[type=text],
+#beer-recipe select,
+#beer-recipe textarea,
+#beer-recipe_options input[type=text],
+#beer-recipe_options select,
+#beer-recipe_options textarea {
+	background:#fff;
+	border:1px solid #ccc;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	-webkit-box-shadow:inset 0 2px 2px rgba(0,0,0,.1);
+	-moz-box-shadow:inset 0 2px 2px rgba(0,0,0,.1);
+	box-shadow:inset 0 2px 2px rgba(0,0,0,.1);
+	padding:5px;
+	height:30px;
+	font:12px Ubuntu, sans-serif;
+	color:#666;
+	margin:0;
+}
+
+#beer-recipe input[type=text].text-small,
+#beer-recipe_options input[type=text].text-small,
+#beer-recipe ul.table li.cell-amount {
+	width:45px !important;
+}
+
+#beer-recipe input[type=text].text-medium,
+#beer-recipe_options input[type=text].text-medium {
+	width:130px;
+}
+
+#beer-recipe input[type=text].text-large,
+#beer-recipe_options input[type=text].text-large {
+	width:290px;
+	font-size:17px;
+}
+
+#beer-recipe select,
+#beer-recipe_options select {
+	height:30px;
+	padding:3px;
+	width:130px;
+}
+
+#beer-recipe textarea,
+#beer-recipe_options textarea {
+	height:93px;
+	width:25%;
+	min-width:200px;
+	max-width:500px;
+	margin:0;
+}
+
+#beer-recipe textarea.text-small,
+#beer-recipe_options textarea.text-small {
+	width:290px;
+	height:53px;
+}
+
+#beer-recipe .step {
+	font:bold 18px/32px sans-serif;
+	text-align:center;
+}
+
+#beer-recipe .step span {
+	display:block;
+	width:43px;
+}
+
+#beer-recipe table.form-table ul.table {
+	margin-bottom:5px;
+	min-width:450px;
+}
+
+#beer-recipe table.form-table ul.table li.thead ul.tr {
+	height:30px;
+}
+
+#beer-recipe table.form-table ul.table li.th {
+	padding:0 5px;
+	font-size:10px;
+	font-weight:bold;
+	text-transform:uppercase;
+	background-color: #575757;
+	background-image: -ms-linear-gradient(bottom,#464646,#6a6a6a);
+	background-image: -moz-linear-gradient(bottom,#464646,#6a6a6a);
+	background-image: -o-linear-gradient(bottom,#464646,#6a6a6a);
+	background-image: -webkit-gradient(linear,left bottom,left top,from(#464646),to(#6a6a6a));
+	background-image: -webkit-linear-gradient(bottom,#464646,#6a6a6a);
+	background-image: linear-gradient(bottom,#464646,#6a6a6a);
+	-webkit-box-shadow:0 1px 0 rgba(0,0,0,.15);
+	-moz-box-shadow:0 1px 0 rgba(0,0,0,.15);
+	box-shadow:0 1px 0 rgba(0,0,0,.15);
+	text-shadow: 0 -1px 0 #333;
+	color:#fff;
+	line-height:30px;
+	text-indent:1px;
+	float:left;
+	height:30px;
+	margin:0;
+}
+
+#beer-recipe table.form-table ul.table li.th.textcenter {
+	text-align:center;
+}
+
+#beer-recipe table.form-table ul.table li.th.left_corner {
+	-webkit-border-top-left-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	border-top-left-radius: 5px;
+	text-align:center;
+	padding-left:10px;
+}
+
+#beer-recipe table.form-table ul.table li.th.right_corner {
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-radius-topright: 5px;
+	border-top-right-radius: 5px;
+}
+
+#beer-recipe table.form-table ul.table#instructions_table li.tbody ul.tr {
+}
+
+#beer-recipe table.form-table ul.table li.td {
+	padding:5px;
+	float:left;
+	margin:0;
+	border-bottom:1px solid #adadad;
+	height:30px;
+}
+
+#beer-recipe table.form-table ul.table#instructions_table li.td {
+	height:93px;
+}
+
+#beer-recipe table.form-table ul.table input[type=text],
+#beer-recipe table.form-table ul.table select,
+#beer-recipe table.form-table ul.table textarea {
+	width:100%;
+	min-width:100%;
+	max-width:100%;
+}
+
+#beer-recipe table.form-table ul.table .cell-measurement {
+	width:10%;
+	min-width:100px;
+	max-width:130px;
+}
+
+#beer-recipe table.form-table ul.table .cell-grain,
+#beer-recipe table.form-table ul.table .cell-hop,
+#beer-recipe table.form-table ul.table .cell-notes {
+	width:20%;
+	min-width:100px;
+	max-width:200px;
+}
+
+#beer-recipe table.form-table ul.table .cell-description {
+	width:36.5%;
+	min-width:185px;
+	max-width:395px;
+}
+
+#beer-recipe table.form-table ul.table .image {
+	width:20%;
+	min-width:180px;
+	max-width:200px;
+}
+
+#beer-recipe .sort_label {
+	display:block;
+	width:20px;
+	height:17px;
+	background:url(../img/sprite.png) no-repeat -68px -100px;
+	margin:6px 0 0 1px;
+}
+
+#beer-recipe .sort {
+	display:block;
+	width:20px;
+	height:15px;
+	background:url(../img/sprite.png) 0 -100px;
+	margin:9px 0 0 5px;
+	cursor:move;
+}
+
+.grain_add, 
+.grain_remove,
+.hop_add, 
+.hop_remove {
+	display:block;
+	width:18px;
+	height:16px;
+	background:url(../img/sprite.png);
+	margin:8px 3px 0 -2px;
+}
+
+.grain_add, 
+.hop_add {
+	background-position:-30px -100px;
+}
+
+.grain_remove, 
+.hop_remove {
+	background-position:-50px -100px;
+}
+
+#beer-recipe .tr:first-child .grain_remove,
+#beer-recipe .tr:first-child .hop_remove {
+	background:none;
+	height:0;
+}
+
+#beer-recipe img.recipress_preview_image,
+#beer-recipe_options .image_radio img {
+	display:block;
+	border:5px solid #fff;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	-webkit-box-shadow:0 0 0 1px #bbb, 0 2px 5px rgba(0,0,0,.25);
+	-moz-box-shadow:0 0 0 1px #bbb, 0 2px 5px rgba(0,0,0,.25);
+	box-shadow:0 0 0 1px #bbb, 0 2px 5px rgba(0,0,0,.25);
+	float:left;
+	margin:2px 10px 5px 0;
+	max-width:300px;
+}
+
+#beer-recipe ul.table img.recipress_preview_image {
+	max-height:50px;
+}
+
+#beer-recipe input[type=button] {
+	margin:5px 0;
+}
+
+/*
+ * -----------------------------
+ * Options
+ * ----------------------------- 
+ */
+ 
+#beer-recipe_options .title {
+	border-bottom:1px dotted #ccc;
+	padding-bottom:5px;
+	margin-bottom:0;
+}
+
+#beer-recipe_options .image_radio label {
+	float:left;
+	margin-right:15px;
+}
+
+#beer-recipe_options .image_radio input {
+	display:none;
+}
+
+#beer-recipe_options .image_radio img {
+	float:none;
+	margin-bottom:10px;
+}
+
+#beer-recipe_options .image_radio .active img {
+	border-color:#298CBA;
+}
+
+#beer-recipe_options .metabox-holder {
+	padding:0;
+}
+
+#beer-recipe_options h3 {
+	cursor:auto;
+}
+
+#beer-recipe_options fieldset label {
+	line-height:30px;
+}
+
+/*
+ * -----------------------------
+ * Icons
+ * ----------------------------- 
+ */
+ 
+#icon-recipress_options,
+.taxonomy-grain #icon-edit-tags,
+.taxonomy-hop #icon-edit-tags,
+.taxonomy-course #icon-edit-tags,
+.taxonomy-skill_level #icon-edit-tags {
+	background:url(../img/icon.png) no-repeat -4px -5px;
+}
+
+#toplevel_page_recipress_options .wp-menu-image img { display:none; }
+#toplevel_page_recipress_options .wp-menu-image a {
+	background:url(../img/icon.png) no-repeat 0 -48px;
+}
+#toplevel_page_recipress_options:hover .wp-menu-image a,
+#toplevel_page_recipress_options.wp-has-current-submenu .wp-menu-image a {
+	background-position:0 -88px;
+}
