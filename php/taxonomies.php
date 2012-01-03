@@ -1,5 +1,5 @@
 <?php
-// Add grain beer recipe taxonomy
+// Add grain taxonomy
 function register_taxonomy_grains() {
 	$labels = array( 
 	'name' 				=> _x( 'Grains', 'grains' ),
@@ -30,7 +30,100 @@ function register_taxonomy_grains() {
 	register_taxonomy( 'grains', 'beer_recipe', $args );
 }
 
-// Add hop beer recipe taxonomy
+// Add BJCP Styles taxonomy
+function register_taxonomy_BJCPStyles() {
+	$labels = array( 
+	'name' 				=> _x( 'BJCP Styles', 'taxonomy general name' ),
+	'singular_name' 	=> _x( 'BJCP Style', 'taxonomy singular name' ),
+	'search_items'		=> __( 'Search BJCP Styles' ),
+	'popular_items' 	=> __( 'Popular BJCP Styles' ),
+	'all_items'			=> __( 'All BJCP Styles' ),
+	'parent_item' 		=> __( 'Parent BJCP Style' ),
+	'parent_item_colon' => __( 'Parent BJCP Style:' ),
+	'edit_item' 		=> __( 'Edit BJCP Style' ),
+	'update_item' 		=> __( 'Update BJCP Style' ),
+	'add_new_item' 		=> __( 'Add New BJCP Style' ),
+	'new_item_name' 	=> __( 'New BJCP Style Name' ),
+	'add_or_remove_items' => __( 'Add or remove BJCP styles' ),
+	'menu_name' 		=> __( 'BJCP Styles' ),
+	);
+	$args = array( 
+	'labels' 			=> $labels,
+	'public'			=> true,
+	'show_in_nav_menus' => true,
+	'show_ui' 			=> true,
+	'show_tagcloud' 	=> false,
+	'hierarchical'	 	=> true,
+	
+	'rewrite' 			=> true,
+	'query_var' 		=> true
+	);
+	register_taxonomy( 'bjcpstyles', 'beer_recipe', $args );
+}
+
+// Add yeast taxonomy
+function register_taxonomy_yeasts() {
+	$labels = array( 
+	'name' 				=> _x( 'Yeasts', 'taxonomy general name' ),
+	'singular_name' 	=> _x( 'Yeast', 'taxonomy singular name' ),
+	'search_items'		=> __( 'Search Yeasts' ),
+	'popular_items' 	=> __( 'Popular Yeasts' ),
+	'all_items'			=> __( 'All Yeasts' ),
+	'parent_item' 		=> __( 'Parent Yeast' ),
+	'parent_item_colon' => __( 'Parent Yeast:' ),
+	'edit_item' 		=> __( 'Edit Yeast' ),
+	'update_item' 		=> __( 'Update Yeast' ),
+	'add_new_item' 		=> __( 'Add New Yeast' ),
+	'new_item_name' 	=> __( 'New Yeast Name' ),
+	'add_or_remove_items' => __( 'Add or remove yeasts' ),
+	'menu_name' 		=> __( 'Yeasts' ),
+	);
+	$args = array( 
+	'labels' 			=> $labels,
+	'public'			=> true,
+	'show_in_nav_menus' => true,
+	'show_ui' 			=> true,
+	'show_tagcloud' 	=> false,
+	'hierarchical'	 	=> true,
+	
+	'rewrite' 			=> true,
+	'query_var' 		=> true
+	);
+	register_taxonomy( 'yeasts', 'beer_recipe', $args );
+}
+
+// Add yeast taxonomy
+function register_taxonomy_types() {
+	$labels = array( 
+	'name' 				=> _x( 'Types', 'taxonomy general name' ),
+	'singular_name' 	=> _x( 'Type', 'taxonomy singular name' ),
+	'search_items'		=> __( 'Search Types' ),
+	'popular_items' 	=> __( 'Popular Types' ),
+	'all_items'			=> __( 'All Types' ),
+	'parent_item' 		=> __( 'Parent Type' ),
+	'parent_item_colon' => __( 'Parent Type:' ),
+	'edit_item' 		=> __( 'Edit Type' ),
+	'update_item' 		=> __( 'Update Type' ),
+	'add_new_item' 		=> __( 'Add New Type' ),
+	'new_item_name' 	=> __( 'New Type Name' ),
+	'add_or_remove_items' => __( 'Add or remove types' ),
+	'menu_name' 		=> __( 'Types' ),
+	);
+	$args = array( 
+	'labels' 			=> $labels,
+	'public'			=> true,
+	'show_in_nav_menus' => true,
+	'show_ui' 			=> true,
+	'show_tagcloud' 	=> false,
+	'hierarchical'	 	=> false,
+	
+	'rewrite' 			=> true,
+	'query_var' 		=> true
+	);
+	register_taxonomy( 'types', 'beer_recipe', $args );
+}
+
+// Add hop taxonomy
 function register_taxonomy_hops() {
 	$labels = array( 
 	'name' 				=> _x( 'Hops', 'hops' ),
@@ -60,4 +153,14 @@ function register_taxonomy_hops() {
 	);
 	register_taxonomy( 'hops', 'beer_recipe', $args );
 }
+
+// Remove Taxonomy Boxes
+function brewdetectives_remove_taxonomy_boxes() {
+	remove_meta_box('grainsdiv', 'beer_recipe', 'side');
+	remove_meta_box('bjcpstylesdiv', 'beer_recipe', 'side');
+	remove_meta_box('hopsdiv', 'beer_recipe', 'side');
+	remove_meta_box('yeastsdiv', 'beer_recipe', 'side');
+	remove_meta_box('tagsdiv-types', 'beer_recipe', 'side');
+}
+add_action( 'admin_menu' , 'brewdetectives_remove_taxonomy_boxes' );
 ?>

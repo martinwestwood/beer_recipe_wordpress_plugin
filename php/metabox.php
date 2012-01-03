@@ -9,6 +9,51 @@ function beer_recipe_add_box() {
 // Custom Fields
 $meta_fields = array(
 	array(
+		'name'	=> 'Author',
+		'desc'	=> 'Who is the author for this recipe?',
+		'place'	=> '',
+		'size'	=> 'large',
+		'id'	=> 'recipeauthor',
+		'type'	=> 'text'
+	),
+    array(
+		'name'	=> 'BJCP Style',
+		'id'	=> 'bjcpstyles',
+		'type'	=> 'tax_select'
+	),
+    array(
+		'name'	=> 'Recipe Type',
+		'id'	=> 'types',
+		'type'	=> 'tax_select'
+	),
+    array(
+		'name'	=> 'Yeast Starter',
+		'desc'	=> 'Was a yeast starter used?',
+		'id'	=> 'yeaststarter',
+		'type'	=> 'checkbox'
+	),
+    array(
+		'name'	=> 'Yeast',
+		'id'	=> 'yeasts',
+		'type'	=> 'tax_select'
+	),
+	array(
+		'name'	=> 'Original Gravity',
+		'desc'	=> 'What is the original gravity for this recipe?',
+		'place'	=> '',
+		'size'	=> 'small',
+		'id'	=> 'originalgravity',
+		'type'	=> 'text'
+	),
+	array(
+		'name'	=> 'Final Gravity',
+		'desc'	=> 'What is the final gravity for this recipe?',
+		'place'	=> '',
+		'size'	=> 'small',
+		'id'	=> 'finalgravity',
+		'type'	=> 'text'
+	),
+	array(
 		'name'	=> 'Grains',
 		'desc'	=> 'Click the plus icon to add another grain. <a href="'.get_bloginfo('home').'/wp-admin/edit-tags.php?taxonomy=grains">Manage Grains</a>',
 		'id'	=> 'grain',
@@ -82,6 +127,8 @@ function beer_recipe_show_box() {
 							<li class="th cell-amount">Amount</li>
 							<li class="th cell-measurement">Measurement</li>
 							<li class="th cell-hop">Hop</li>
+							<li class="th cell-boil">Boil</li>
+							<li class="th cell-boil-measurement">Boil Meas.</li>
 							<li class="th right_corner"><a class="hop_add" href="#"></a></li>
 						</ul></li>',
 						'<li class="tbody">';
@@ -93,6 +140,8 @@ function beer_recipe_show_box() {
 							'<li class="td cell-amount"><input type="text" placeholder="0" name="hop['.$i.'][amount]" id="hop_amount_'.$i.'" value="', $row['amount'],'" size="3" /></li>', //amount
 							'<li class="td cell-measurement"><input type="text" name="hop['.$i.'][measurement]" id="hop_measurement_'.$i.'" value="', $row['measurement'],'" size="30" /></li>', //measurement
 							'<li class="td cell-hop"><input type="text" name="hop['.$i.'][hop]" id="hop_'.$i.'" onfocus="setSuggestHop(\'hop_'.$i.'\');" value="', $row['hop'],'" size="30" class="hop" placeholder="start typing a hop" /></li>', // hop
+							'<li class="td cell-boil-time"><input type="text" name="hop['.$i.'][boil-time]" id="hop_boil-time_'.$i.'" value="', $row['boil-time'],'" size="3" /></li>', // boil-time
+							'<li class="td cell-boil-measurement"><input type="text" name="hop['.$i.'][boil-measurement]" id="hop_boil-measurement_'.$i.'" value="', $row['boil-measurement'],'" size="30" /></li>', // boil-measurement
 							'<li class="td"><a class="hop_remove" href="#"></a></li>', // remove
 							'<li class="clear"></li>', // clear
 						'</ul>';
@@ -104,13 +153,36 @@ function beer_recipe_show_box() {
 							'<li class="td cell-amount"><input type="text" class="text-small" placeholder="0" name="hop['.$i.'][amount]" id="hop_amount_'.$i.'" value="" size="3" /></li>', //amount
 							'<li class="td cell-measurement"><input type="text" name="hop['.$i.'][measurement]" id="hop_measurement_'.$i.'" value="" size="30" /></li>', //measurement
 							'<li class="td cell-hop"><input type="text" name="hop['.$i.'][hop]" id="hop_'.$i.'" onfocus="setSuggestHop(\'hop_'.$i.'\');" value="" size="30" class="hop" placeholder="start typing a hop" /></li>', // hop
-							'<li class="td"><a class="hop_remove" href="#"></a></li>', // remove
+							'<li class="td cell-boil-time"><input type="text" name="hop['.$i.'][boil-time]" id="hop_boil-time_'.$i.'" value="', $row['boil-time'],'" size="3" /></li>', // boil-time
+							'<li class="td cell-boil-measurement"><input type="text" name="hop['.$i.'][boil-measurement]" id="hop_boil-measurement_'.$i.'" value="', $row['boil-measurement'],'" size="30" /></li>', // boil-measurement
+                            '<li class="td"><a class="hop_remove" href="#"></a></li>', // remove
 							'<li class="clear"></li>', // clear
 						'</ul>';
 				}
 				echo '</li></ul>',
 					'<span class="description">', $field['desc'], '</span>';
-            break;
+                break;
+			// tax_select
+            case 'tax_select':
+                echo '<select name="', $field['id'], '" id="', $field['id'], '">',
+						'<option value="">Select One</option>'; // Select One
+				$terms = get_terms($field['id'], 'get=all');
+				$selected = wp_get_object_terms($post->ID, $field['id']);
+                foreach ($terms as $term) {
+                    if (!is_wp_error($selected) && !empty($selected) && !strcmp($term->slug, $selected[0]->slug)) 
+						echo '<option value="' . $term->slug . '" selected="selected">' . $term->name . '</option>'; 
+					else
+						echo '<option value="' . $term->slug . '">' . $term->name . '</option>'; 
+                }
+                echo '</select>', '&nbsp;&nbsp;<span class="description"><a href="'.get_bloginfo('home').'/wp-admin/edit-tags.php?taxonomy=', $field['id'], '&amp;post_type=beer_recipe">Manage ', $field['name'], 's</a></span>';
+			    break;
+            // text
+            case 'text':
+                echo '<input type="text" name="', $field['id'], '" id="', $field['id'], '" value="', $meta ,'" class="text-', $field['size'] ,'" size="30" placeholder="', $field['place'], '" />', '&nbsp;&nbsp;<span class="description">', $field['desc'], '</span>';
+                break;
+            // checkbox
+            case 'checkbox':
+                echo '<input type="checkbox" name="', $field['id'], '" id="', $field['id'], '"', $meta ? ' checked="checked"' : '', ' /> <label for="', $field['id'], '">', $field['desc'], '</label>';
 		}
     }
     echo '</table></div>';
@@ -136,6 +208,7 @@ function beer_recipe_save_data($post_id) {
 			return $post_id;
 		}
 		foreach ($meta_fields as $field) {
+            if($field['type'] == 'tax_select') continue;
 			$old = get_post_meta($post_id, $field['id'], true);
 			$new = $_POST[$field['id']];
 			if ($new && $new != $old) {
@@ -151,18 +224,27 @@ function beer_recipe_save_data($post_id) {
 		
 		// save taxonomies
 		$post = get_post($post_id);
-		if (($post->post_type == 'beer-recipe')) { 
+		if (($post->post_type == 'beer_recipe')) { 
 			$the_grains = $_POST['grain'];
 			foreach($the_grains as $the_grains) {
 					$grains[] = $the_grains['grain'];
 			}
-			wp_set_object_terms( $post_id, $grains, 'grain' );
+			wp_set_object_terms( $post_id, $grains, 'grains' );
             
 			$the_hops = $_POST['hop'];
 			foreach($the_hops as $the_hops) {
 					$hops[] = $the_hops['hop'];
 			}
-			wp_set_object_terms( $post_id, $hops, 'hop' );
+			wp_set_object_terms( $post_id, $hops, 'hops' );
+            
+            $bjcpstyles = $_POST['bjcpstyles'];
+			wp_set_object_terms( $post_id, $bjcpstyles, 'bjcpstyles' );
+            
+            $yeasts = $_POST['yeasts'];
+			wp_set_object_terms( $post_id, $yeasts, 'yeasts' );
+            
+            $types = $_POST['types'];
+			wp_set_object_terms( $post_id, $types, 'types' );
 		}
 }
 ?>

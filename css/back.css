@@ -91,7 +91,8 @@
 
 #beer-recipe input[type=text].text-small,
 #beer-recipe_options input[type=text].text-small,
-#beer-recipe ul.table li.cell-amount {
+#beer-recipe ul.table li.cell-amount,
+#beer-recipe ul.table li.cell-boil{
 	width:45px !important;
 }
 
@@ -212,7 +213,8 @@
 	max-width:100%;
 }
 
-#beer-recipe table.form-table ul.table .cell-measurement {
+#beer-recipe table.form-table ul.table .cell-measurement,
+#beer-recipe table.form-table ul.table .cell-boil-measurement {
 	width:10%;
 	min-width:100px;
 	max-width:130px;

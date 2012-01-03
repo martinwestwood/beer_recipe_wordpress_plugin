@@ -59,6 +59,9 @@ add_action( 'init', 'create_beer_recipe_post_type' );
 add_action( 'init', 'register_taxonomy_grains' );
 add_action( 'init', 'register_taxonomy_hops' );
 add_action( 'init', 'register_brewdetectives_shortcodes' );
+add_action( 'init', 'register_taxonomy_BJCPStyles' );
+add_action( 'init', 'register_taxonomy_yeasts' );
+add_action( 'init', 'register_taxonomy_types' );
 
 register_activation_hook( __FILE__, 'activate_brewdetectives_taxonomies' );
 
@@ -70,6 +73,9 @@ function activate_brewdetectives_taxonomies() {
 	// activate taxonomies
     register_taxonomy_grains();
     register_taxonomy_hops();
+    register_taxonomy_BJCPStyles();
+    register_taxonomy_yeasts();
+    register_taxonomy_types();
 	$GLOBALS['wp_rewrite']->flush_rules();
 }
 
