@@ -18,10 +18,12 @@ define( 'BREWDETECTIVES_URL', WP_PLUGIN_URL . '/' . basename( dirname( __FILE__ 
 function get_brewdetectives_url() { return BREWDETECTIVES_URL; }
 
 // Load plugin files
+include_once(BREWDETECTIVES_DIR.'php/functions.php');
 include_once(BREWDETECTIVES_DIR.'php/posttypes.php');
 include_once(BREWDETECTIVES_DIR.'php/taxonomies.php');
 include_once(BREWDETECTIVES_DIR.'php/shortcodes.php');
 include_once(BREWDETECTIVES_DIR.'php/metabox.php');
+include_once(BREWDETECTIVES_DIR.'php/output.php');
 
 // Styles and Scripts
 if (is_admin()) {
