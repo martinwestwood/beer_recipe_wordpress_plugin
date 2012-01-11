@@ -1,13 +1,13 @@
 <?php
-// Add Meta Box
+// Add Beer Recipe Meta Box
 add_action('admin_menu', 'beer_recipe_add_box');
 function beer_recipe_add_box() {
-    global $meta_fields;
+    global $beer_recipe_meta_fields;
     add_meta_box('beer-recipe', 'Beer Recipe', 'beer_recipe_show_box', 'beer_recipe', 'normal', 'high');
 }
 
-// Custom Fields
-$meta_fields = array(
+// Beer Recipe Custom Fields
+$beer_recipe_meta_fields = array(
 	array(
 		'name'	=> 'Author',
 		'desc'	=> 'Who is the author for this recipe?',
@@ -68,13 +68,13 @@ $meta_fields = array(
 );
 
 
-// The Callback
+// The Beer Recipe Callback
 function beer_recipe_show_box() {
-	global $meta_fields, $post, $measurements_singular, $measurements_plural;
+	global $beer_recipe_meta_fields, $post;
 	// Use nonce for verification
     echo '<input type="hidden" name="beer_recipe_meta_box_nonce" value="', wp_create_nonce(basename(__FILE__)), '" />';
 	echo '<div id="beer_recipe_table"><table class="form-table">';
-    foreach ($meta_fields as $field) {
+    foreach ($beer_recipe_meta_fields as $field) {
 	    // get current post meta data
         $meta = get_post_meta($post->ID, $field['id'], true);
         echo '<tr>',
@@ -189,11 +189,11 @@ function beer_recipe_show_box() {
 }
 
 
-// Save the Data
+// Save the Beer Recipe Data
 add_action('save_post', 'beer_recipe_save_data');
 // Save data from meta box
 function beer_recipe_save_data($post_id) {
-    global $meta_fields;
+    global $beer_recipe_meta_fields;
 		// verify nonce
 		if (!wp_verify_nonce($_POST['beer_recipe_meta_box_nonce'], basename(__FILE__))) 
 			return $post_id;
@@ -207,7 +207,7 @@ function beer_recipe_save_data($post_id) {
 		} elseif (!current_user_can('edit_post', $post_id)) {
 			return $post_id;
 		}
-		foreach ($meta_fields as $field) {
+		foreach ($beer_recipe_meta_fields as $field) {
             if($field['type'] == 'tax_select') continue;
 			$old = get_post_meta($post_id, $field['id'], true);
 			$new = $_POST[$field['id']];
@@ -245,6 +245,153 @@ function beer_recipe_save_data($post_id) {
             
             $types = $_POST['types'];
 			wp_set_object_terms( $post_id, $types, 'types' );
+		}
+}
+
+
+// Add Beer Meta Box
+add_action('admin_menu', 'beer_add_box');
+function beer_add_box() {
+    global $beer_meta_fields;
+    add_meta_box('beer', 'Beer', 'beer_show_box', 'beer', 'normal', 'high');
+}
+
+// Beer Custom Fields
+$beer_meta_fields = array(
+    array(
+		'name'	=> 'BJCP Style',
+		'id'	=> 'bjcpstyles',
+		'type'	=> 'tax_select'
+	),
+	array(
+		'name'	=> 'Alchohol Content',
+		'desc'	=> 'What is the alchohol content for this beer?',
+		'place'	=> '',
+		'size'	=> 'small',
+		'id'	=> 'abv',
+		'type'	=> 'text'
+	),
+	array(
+		'name'	=> 'Breweries',
+		'desc'	=> 'Click the plus icon to add another Brewery. <a href="'.get_bloginfo('home').'/wp-admin/edit-tags.php?taxonomy=breweries">Manage Breweries</a>',
+		'id'	=> 'brewery',
+		'type'	=> 'brewery'
+	)
+);
+
+
+// The Beer Callback
+function beer_show_box() {
+	global $beer_meta_fields, $post;
+	// Use nonce for verification
+    echo '<input type="hidden" name="beer_meta_box_nonce" value="', wp_create_nonce(basename(__FILE__)), '" />';
+	echo '<div id="beer_table"><table class="form-table">';
+    foreach ($beer_meta_fields as $field) {
+	    // get current post meta data
+        $meta = get_post_meta($post->ID, $field['id'], true);
+        echo '<tr>',
+                '<th style="width:20%"><label for="', $field['id'], '">', $field['name'], '</label></th>',
+                '<td>';
+				
+        switch ($field['type']) {
+			// Brewery
+            case 'brewery':
+                echo '<ul class="table" id="breweries_table">',
+						'<li class="thead"><ul class="tr">
+							<li class="th left_corner"><span class="sort_label"></span></li>
+							<li class="th cell-brewery">Brewery</li>
+							<li class="th right_corner"><a class="brewery_add" href="#"></a></li>
+						</ul></li>',
+						'<li class="tbody">';
+				$i = 0;
+				if($meta != '') {
+					foreach($meta as $row) {
+						echo '<ul class="tr">',
+							'<li class="td"><span class="sort"></span></li>', // sort
+							'<li class="td cell-brewery"><input type="text" name="brewery['.$i.'][brewery]" id="brewery_'.$i.'" onfocus="setSuggestBrewery(\'brewery_'.$i.'\');" value="', $row['brewery'],'" size="30" class="brewery" placeholder="start typing a brewery" /></li>', // brewery
+							'<li class="td"><a class="brewery_remove" href="#"></a></li>', // remove
+							'<li class="clear"></li>', // clear
+						'</ul>';
+						$i++;
+					}
+				} else {
+						echo '<ul class="tr">',
+							'<li class="td"><span class="sort"></span></li>', // sort
+							'<li class="td cell-brewery"><input type="text" name="brewery['.$i.'][brewery]" id="brewery_'.$i.'" onfocus="setSuggestBrewery(\'brewery_'.$i.'\');" value="" size="30" class="brewery" placeholder="start typing a brewery" /></li>', // brewery
+							'<li class="td"><a class="brewery_remove" href="#"></a></li>', // remove
+							'<li class="clear"></li>', // clear
+						'</ul>';
+				}
+				echo '</li></ul>',
+					'<span class="description">', $field['desc'], '</span>';
+                break;
+			// tax_select
+            case 'tax_select':
+                echo '<select name="', $field['id'], '" id="', $field['id'], '">',
+						'<option value="">Select One</option>'; // Select One
+				$terms = get_terms($field['id'], 'get=all');
+				$selected = wp_get_object_terms($post->ID, $field['id']);
+                foreach ($terms as $term) {
+                    if (!is_wp_error($selected) && !empty($selected) && !strcmp($term->slug, $selected[0]->slug)) 
+						echo '<option value="' . $term->slug . '" selected="selected">' . $term->name . '</option>'; 
+					else
+						echo '<option value="' . $term->slug . '">' . $term->name . '</option>'; 
+                }
+                echo '</select>', '&nbsp;&nbsp;<span class="description"><a href="'.get_bloginfo('home').'/wp-admin/edit-tags.php?taxonomy=', $field['id'], '&amp;post_type=beer">Manage ', $field['name'], 's</a></span>';
+			    break;
+            // text
+            case 'text':
+                echo '<input type="text" name="', $field['id'], '" id="', $field['id'], '" value="', $meta ,'" class="text-', $field['size'] ,'" size="30" placeholder="', $field['place'], '" />', '&nbsp;&nbsp;<span class="description">', $field['desc'], '</span>';
+                break;
+            // checkbox
+            case 'checkbox':
+                echo '<input type="checkbox" name="', $field['id'], '" id="', $field['id'], '"', $meta ? ' checked="checked"' : '', ' /> <label for="', $field['id'], '">', $field['desc'], '</label>';
+		}
+    }
+    echo '</table></div>';
+}
+
+
+// Save the Beer Data
+add_action('save_post', 'beer_save_data');
+// Save data from meta box
+function beer_save_data($post_id) {
+    global $beer_meta_fields;
+		// verify nonce
+		if (!wp_verify_nonce($_POST['beer_meta_box_nonce'], basename(__FILE__))) 
+			return $post_id;
+		// check autosave
+		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+			return $post_id;
+		// check permissions
+		if ('page' == $_POST['post_type']) {
+			if (!current_user_can('edit_page', $post_id))
+				return $post_id;
+		} elseif (!current_user_can('edit_post', $post_id)) {
+			return $post_id;
+		}
+		foreach ($beer_meta_fields as $field) {
+            if($field['type'] == 'tax_select') continue;
+			$old = get_post_meta($post_id, $field['id'], true);
+			$new = $_POST[$field['id']];
+			if ($new && $new != $old) {
+				update_post_meta($post_id, $field['id'], $new);
+			} elseif ('' == $new && $old) {
+				delete_post_meta($post_id, $field['id'], $old);
+			}
+		}
+		
+		// save taxonomies
+		$post = get_post($post_id);
+		if (($post->post_type == 'beer')) { 
+			$the_brewerys = $_POST['brewery'];
+			foreach($the_brewerys as $the_brewery) {
+					$brewerys[] = $the_brewery['brewery'];
+			}
+			wp_set_object_terms( $post_id, $brewerys, 'breweries' );
+                       
+            $bjcpstyles = $_POST['bjcpstyles'];
+			wp_set_object_terms( $post_id, $bjcpstyles, 'bjcpstyles' );
 		}
 }
 ?>

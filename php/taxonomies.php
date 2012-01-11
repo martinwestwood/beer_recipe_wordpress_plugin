@@ -51,7 +51,7 @@ function register_taxonomy_BJCPStyles() {
 	'labels' 			=> $labels,
 	'public'			=> true,
 	'show_in_nav_menus' => true,
-	'show_ui' 			=> true,
+	'show_ui' 			=> false,
 	'show_tagcloud' 	=> false,
 	'hierarchical'	 	=> true,
 	
@@ -59,6 +59,7 @@ function register_taxonomy_BJCPStyles() {
 	'query_var' 		=> true
 	);
 	register_taxonomy( 'bjcpstyles', 'beer_recipe', $args );
+	register_taxonomy( 'bjcpstyles', 'beer', $args );
 }
 
 // Add yeast taxonomy
@@ -154,6 +155,35 @@ function register_taxonomy_hops() {
 	register_taxonomy( 'hops', 'beer_recipe', $args );
 }
 
+// Add brewery taxonomy
+function register_taxonomy_breweries() {
+	$labels = array( 
+	'name' 				=> _x( 'Breweries', 'taxonomy general name' ),
+	'singular_name' 	=> _x( 'Brewery', 'taxonomy singular name' ),
+	'search_items'		=> __( 'Search Breweries' ),
+	'popular_items' 	=> __( 'Popular Breweries' ),
+	'all_items'			=> __( 'All Breweries' ),
+	'edit_item' 		=> __( 'Edit Brewery' ),
+	'update_item' 		=> __( 'Update Brewery' ),
+	'add_new_item' 		=> __( 'Add New Brewery' ),
+	'new_item_name' 	=> __( 'New Brewery Name' ),
+	'add_or_remove_items' => __( 'Add or remove breweries' ),
+	'menu_name' 		=> __( 'Breweries' ),
+	);
+	$args = array( 
+	'labels' 			=> $labels,
+	'public'			=> true,
+	'show_in_nav_menus' => true,
+	'show_ui' 			=> true,
+	'show_tagcloud' 	=> false,
+	'hierarchical'	 	=> false,
+	
+	'rewrite' 			=> true,
+	'query_var' 		=> true
+	);
+	register_taxonomy( 'breweries', 'beer', $args );
+}
+
 // Remove Taxonomy Boxes
 function brewdetectives_remove_taxonomy_boxes() {
 	remove_meta_box('grainsdiv', 'beer_recipe', 'side');
@@ -161,6 +191,9 @@ function brewdetectives_remove_taxonomy_boxes() {
 	remove_meta_box('hopsdiv', 'beer_recipe', 'side');
 	remove_meta_box('yeastsdiv', 'beer_recipe', 'side');
 	remove_meta_box('tagsdiv-types', 'beer_recipe', 'side');
+    
+	remove_meta_box('bjcpstylesdiv', 'beer', 'side');
+    remove_meta_box('tagsdiv-breweries', 'beer', 'side');
 }
 add_action( 'admin_menu' , 'brewdetectives_remove_taxonomy_boxes' );
 ?>
