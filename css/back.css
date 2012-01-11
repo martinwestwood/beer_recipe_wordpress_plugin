@@ -268,7 +268,8 @@
 #beer-recipe table.form-table ul.table .cell-grain,
 #beer-recipe table.form-table ul.table .cell-hop,
 #beer-recipe table.form-table ul.table .cell-notes,
-#beer table.form-table ul.table .cell-brewery
+#beer table.form-table ul.table .cell-store,
+#beer table.form-table ul.table .cell-restaurant
 {
 	width:20%;
 	min-width:100px;
@@ -312,8 +313,10 @@
 .grain_remove,
 .hop_add, 
 .hop_remove,
-.brewery_add, 
-.brewery_remove {
+.store_add, 
+.store_remove,
+.restaurant_add, 
+.restaurant_remove  {
 	display:block;
 	width:18px;
 	height:16px;
@@ -323,19 +326,22 @@
 
 .grain_add, 
 .hop_add,
-.brewery_add{
+.store_add,
+.restaurant_add {
 	background-position:-30px -100px;
 }
 
 .grain_remove, 
 .hop_remove,
-.brewery_remove{
+.store_remove,
+.restaurant_remove {
 	background-position:-50px -100px;
 }
 
 #beer-recipe .tr:first-child .grain_remove,
 #beer-recipe .tr:first-child .hop_remove,
-#beer .tr:first-child brewery_remove {
+#beer .tr:first-child store_remove,
+#beer .tr:first-child restaurant_remove {
 	background:none;
 	height:0;
 }
@@ -424,7 +430,8 @@
 #icon-recipress_options,
 .taxonomy-grain #icon-edit-tags,
 .taxonomy-hop #icon-edit-tags,
-.taxonomy-brewery #icon-edit-tags,
+.taxonomy-store #icon-edit-tags,
+.taxonomy-restaurant #icon-edit-tags,
 .taxonomy-course #icon-edit-tags,
 .taxonomy-skill_level #icon-edit-tags {
 	background:url(../img/icon.png) no-repeat -4px -5px;

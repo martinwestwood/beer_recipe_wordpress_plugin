@@ -48,9 +48,14 @@ function add_brewdetectives_script_config() {
         jQuery('#' + id).suggest("<?php echo get_bloginfo('wpurl'); ?>/wp-admin/admin-ajax.php?action=ajax-tag-search&tax=hops");
     }
     
-    // Function to add auto suggest for Breweries
-    function setSuggestBrewery(id) {
-        jQuery('#' + id).suggest("<?php echo get_bloginfo('wpurl'); ?>/wp-admin/admin-ajax.php?action=ajax-tag-search&tax=breweries");
+    // Function to add auto suggest for Restaurants
+    function setSuggestRestaurant(id) {
+        jQuery('#' + id).suggest("<?php echo get_bloginfo('wpurl'); ?>/wp-admin/admin-ajax.php?action=ajax-tag-search&tax=restaurants");
+    }
+    
+    // Function to add auto suggest for Stores
+    function setSuggestStore(id) {
+        jQuery('#' + id).suggest("<?php echo get_bloginfo('wpurl'); ?>/wp-admin/admin-ajax.php?action=ajax-tag-search&tax=stores");
     }
     
     var pluginDir = '<?php echo get_brewdetectives_url() ?>';
@@ -71,6 +76,9 @@ add_action( 'init', 'register_taxonomy_BJCPStyles' );
 add_action( 'init', 'register_taxonomy_yeasts' );
 add_action( 'init', 'register_taxonomy_types' );
 add_action( 'init', 'register_taxonomy_breweries' );
+add_action( 'init', 'register_taxonomy_stores' );
+add_action( 'init', 'register_taxonomy_restaurants' );
+add_action( 'init', 'register_taxonomy_beer_descriptor' );
 
 register_activation_hook( __FILE__, 'activate_brewdetectives_taxonomies' );
 
@@ -87,6 +95,9 @@ function activate_brewdetectives_taxonomies() {
     register_taxonomy_yeasts();
     register_taxonomy_types();
     register_taxonomy_breweries();
+    register_taxonomy_stores();
+    register_taxonomy_restaurants();
+    register_taxonomy_beer_descriptor();
 	$GLOBALS['wp_rewrite']->flush_rules();
 }
 

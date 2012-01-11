@@ -184,6 +184,93 @@ function register_taxonomy_breweries() {
 	register_taxonomy( 'breweries', 'beer', $args );
 }
 
+// Add stores taxonomy
+function register_taxonomy_stores() {
+	$labels = array( 
+	'name' 				=> _x( 'Stores', 'taxonomy general name' ),
+	'singular_name' 	=> _x( 'Store', 'taxonomy singular name' ),
+	'search_items'		=> __( 'Search Stores' ),
+	'popular_items' 	=> __( 'Popular Stores' ),
+	'all_items'			=> __( 'All Stores' ),
+	'edit_item' 		=> __( 'Edit Store' ),
+	'update_item' 		=> __( 'Update Store' ),
+	'add_new_item' 		=> __( 'Add New Store' ),
+	'new_item_name' 	=> __( 'New Store Name' ),
+	'add_or_remove_items' => __( 'Add or remove stores' ),
+	'menu_name' 		=> __( 'Stores' ),
+	);
+	$args = array( 
+	'labels' 			=> $labels,
+	'public'			=> true,
+	'show_in_nav_menus' => true,
+	'show_ui' 			=> false,
+	'show_tagcloud' 	=> false,
+	'hierarchical'	 	=> true,
+	
+	'rewrite' 			=> true,
+	'query_var' 		=> true
+	);
+	register_taxonomy( 'stores', 'beer', $args );
+}
+
+// Add restaurants taxonomy
+function register_taxonomy_restaurants() {
+	$labels = array( 
+	'name' 				=> _x( 'Restaurants', 'taxonomy general name' ),
+	'singular_name' 	=> _x( 'Restaurant', 'taxonomy singular name' ),
+	'search_items'		=> __( 'Search Restaurants' ),
+	'popular_items' 	=> __( 'Popular Restaurants' ),
+	'all_items'			=> __( 'All Restaurants' ),
+	'edit_item' 		=> __( 'Edit Restaurant' ),
+	'update_item' 		=> __( 'Update Restaurant' ),
+	'add_new_item' 		=> __( 'Add New Restaurant' ),
+	'new_item_name' 	=> __( 'New Restaurant Name' ),
+	'add_or_remove_items' => __( 'Add or remove restaurants' ),
+	'menu_name' 		=> __( 'Restaurants' ),
+	);
+	$args = array( 
+	'labels' 			=> $labels,
+	'public'			=> true,
+	'show_in_nav_menus' => true,
+	'show_ui' 			=> false,
+	'show_tagcloud' 	=> false,
+	'hierarchical'	 	=> true,
+	
+	'rewrite' 			=> true,
+	'query_var' 		=> true
+	);
+	register_taxonomy( 'restaurants', 'beer', $args );
+}
+
+// Add beer descriptor taxonomy
+function register_taxonomy_beer_descriptor() {
+	$labels = array( 
+	'name' 				=> _x( 'Beer Descriptors', 'taxonomy general name' ),
+	'singular_name' 	=> _x( 'Beer Descriptor', 'taxonomy singular name' ),
+	'search_items'		=> __( 'Search Beer Descriptors' ),
+	'popular_items' 	=> __( 'Popular Beer Descriptors' ),
+	'all_items'			=> __( 'All Beer Descriptors' ),
+	'edit_item' 		=> __( 'Edit Beer Descriptors' ),
+	'update_item' 		=> __( 'Update Beer Descriptors' ),
+	'add_new_item' 		=> __( 'Add New Beer Descriptor' ),
+	'new_item_name' 	=> __( 'New Beer Descriptor Name' ),
+	'add_or_remove_items' => __( 'Add or remove beer descriptors' ),
+	'menu_name' 		=> __( 'Beer Descriptors' ),
+	);
+	$args = array( 
+	'labels' 			=> $labels,
+	'public'			=> true,
+	'show_in_nav_menus' => true,
+	'show_ui' 			=> true,
+	'show_tagcloud' 	=> false,
+	'hierarchical'	 	=> false,
+	
+	'rewrite' 			=> true,
+	'query_var' 		=> true
+	);
+	register_taxonomy( 'beer-descriptor', 'beer', $args );
+}
+
 // Remove Taxonomy Boxes
 function brewdetectives_remove_taxonomy_boxes() {
 	remove_meta_box('grainsdiv', 'beer_recipe', 'side');
@@ -193,7 +280,8 @@ function brewdetectives_remove_taxonomy_boxes() {
 	remove_meta_box('tagsdiv-types', 'beer_recipe', 'side');
     
 	remove_meta_box('bjcpstylesdiv', 'beer', 'side');
-    remove_meta_box('tagsdiv-breweries', 'beer', 'side');
+    remove_meta_box('storesdiv', 'beer', 'side');
+    remove_meta_box('restaurantsdiv', 'beer', 'side');
 }
 add_action( 'admin_menu' , 'brewdetectives_remove_taxonomy_boxes' );
 ?>

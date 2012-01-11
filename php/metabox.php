@@ -272,10 +272,16 @@ $beer_meta_fields = array(
 		'type'	=> 'text'
 	),
 	array(
-		'name'	=> 'Breweries',
-		'desc'	=> 'Click the plus icon to add another Brewery. <a href="'.get_bloginfo('home').'/wp-admin/edit-tags.php?taxonomy=breweries">Manage Breweries</a>',
-		'id'	=> 'brewery',
-		'type'	=> 'brewery'
+		'name'	=> 'Restaurants',
+		'desc'	=> 'Click the plus icon to add another Restaurant. <a href="'.get_bloginfo('home').'/wp-admin/edit-tags.php?taxonomy=restaurants">Manage Restaurants</a>',
+		'id'	=> 'restaurant',
+		'type'	=> 'restaurant'
+	),
+	array(
+		'name'	=> 'Stores',
+		'desc'	=> 'Click the plus icon to add another Store. <a href="'.get_bloginfo('home').'/wp-admin/edit-tags.php?taxonomy=stores">Manage Stores</a>',
+		'id'	=> 'store',
+		'type'	=> 'store'
 	)
 );
 
@@ -294,13 +300,13 @@ function beer_show_box() {
                 '<td>';
 				
         switch ($field['type']) {
-			// Brewery
-            case 'brewery':
-                echo '<ul class="table" id="breweries_table">',
+			// Restaurant
+            case 'restaurant':
+                echo '<ul class="table" id="restaurants_table">',
 						'<li class="thead"><ul class="tr">
 							<li class="th left_corner"><span class="sort_label"></span></li>
-							<li class="th cell-brewery">Brewery</li>
-							<li class="th right_corner"><a class="brewery_add" href="#"></a></li>
+							<li class="th cell-restaurant">Restaurant</li>
+							<li class="th right_corner"><a class="restaurant_add" href="#"></a></li>
 						</ul></li>',
 						'<li class="tbody">';
 				$i = 0;
@@ -308,8 +314,8 @@ function beer_show_box() {
 					foreach($meta as $row) {
 						echo '<ul class="tr">',
 							'<li class="td"><span class="sort"></span></li>', // sort
-							'<li class="td cell-brewery"><input type="text" name="brewery['.$i.'][brewery]" id="brewery_'.$i.'" onfocus="setSuggestBrewery(\'brewery_'.$i.'\');" value="', $row['brewery'],'" size="30" class="brewery" placeholder="start typing a brewery" /></li>', // brewery
-							'<li class="td"><a class="brewery_remove" href="#"></a></li>', // remove
+							'<li class="td cell-restaurant"><input type="text" name="restaurant['.$i.'][restaurant]" id="restaurant_'.$i.'" onfocus="setSuggestRestaurant(\'restaurant_'.$i.'\');" value="', $row['restaurant'],'" size="30" class="restaurant" placeholder="start typing a restaurant" /></li>', // restaurant
+							'<li class="td"><a class="restaurant_remove" href="#"></a></li>', // remove
 							'<li class="clear"></li>', // clear
 						'</ul>';
 						$i++;
@@ -317,8 +323,39 @@ function beer_show_box() {
 				} else {
 						echo '<ul class="tr">',
 							'<li class="td"><span class="sort"></span></li>', // sort
-							'<li class="td cell-brewery"><input type="text" name="brewery['.$i.'][brewery]" id="brewery_'.$i.'" onfocus="setSuggestBrewery(\'brewery_'.$i.'\');" value="" size="30" class="brewery" placeholder="start typing a brewery" /></li>', // brewery
-							'<li class="td"><a class="brewery_remove" href="#"></a></li>', // remove
+							'<li class="td cell-restaurant"><input type="text" name="restaurant['.$i.'][restaurant]" id="restaurant_'.$i.'" onfocus="setSuggestRestaurant(\'restaurant_'.$i.'\');" value="" size="30" class="restaurant" placeholder="start typing a restaurant" /></li>', // restaurant
+							'<li class="td"><a class="restaurant_remove" href="#"></a></li>', // remove
+							'<li class="clear"></li>', // clear
+						'</ul>';
+				}
+				echo '</li></ul>',
+					'<span class="description">', $field['desc'], '</span>';
+                break;
+            // Store
+            case 'store':
+                echo '<ul class="table" id="stores_table">',
+						'<li class="thead"><ul class="tr">
+							<li class="th left_corner"><span class="sort_label"></span></li>
+							<li class="th cell-store">Store</li>
+							<li class="th right_corner"><a class="store_add" href="#"></a></li>
+						</ul></li>',
+						'<li class="tbody">';
+				$i = 0;
+				if($meta != '') {
+					foreach($meta as $row) {
+						echo '<ul class="tr">',
+							'<li class="td"><span class="sort"></span></li>', // sort
+							'<li class="td cell-store"><input type="text" name="store['.$i.'][store]" id="store_'.$i.'" onfocus="setSuggestStore(\'store_'.$i.'\');" value="', $row['store'],'" size="30" class="store" placeholder="start typing a store" /></li>', // store
+							'<li class="td"><a class="store_remove" href="#"></a></li>', // remove
+							'<li class="clear"></li>', // clear
+						'</ul>';
+						$i++;
+					}
+				} else {
+						echo '<ul class="tr">',
+							'<li class="td"><span class="sort"></span></li>', // sort
+							'<li class="td cell-store"><input type="text" name="store['.$i.'][store]" id="store_'.$i.'" onfocus="setSuggestStore(\'store_'.$i.'\');" value="" size="30" class="store" placeholder="start typing a store" /></li>', // store
+							'<li class="td"><a class="store_remove" href="#"></a></li>', // remove
 							'<li class="clear"></li>', // clear
 						'</ul>';
 				}
@@ -384,11 +421,17 @@ function beer_save_data($post_id) {
 		// save taxonomies
 		$post = get_post($post_id);
 		if (($post->post_type == 'beer')) { 
-			$the_brewerys = $_POST['brewery'];
-			foreach($the_brewerys as $the_brewery) {
-					$brewerys[] = $the_brewery['brewery'];
+			$the_restaurants = $_POST['restaurant'];
+			foreach($the_restaurants as $the_restaurant) {
+					$restaurants[] = $the_restaurant['restaurant'];
 			}
-			wp_set_object_terms( $post_id, $brewerys, 'breweries' );
+			wp_set_object_terms( $post_id, $restaurants, 'restaurants' );
+            
+			$the_stores = $_POST['store'];
+			foreach($the_stores as $the_store) {
+					$stores[] = $the_store['store'];
+			}
+			wp_set_object_terms( $post_id, $stores, 'stores' );
                        
             $bjcpstyles = $_POST['bjcpstyles'];
 			wp_set_object_terms( $post_id, $bjcpstyles, 'bjcpstyles' );
