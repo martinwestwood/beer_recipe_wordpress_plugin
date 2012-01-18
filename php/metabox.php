@@ -55,13 +55,13 @@ $beer_recipe_meta_fields = array(
 	),
 	array(
 		'name'	=> 'Grains',
-		'desc'	=> 'Click the plus icon to add another grain. <a href="'.get_bloginfo('home').'/wp-admin/edit-tags.php?taxonomy=grains">Manage Grains</a>',
+		'desc'	=> 'Click the plus icon to add another grain. <a href="'.get_bloginfo('url').'/wp-admin/edit-tags.php?taxonomy=grains">Manage Grains</a>',
 		'id'	=> 'grain',
 		'type'	=> 'grain'
 	),
     array(
 		'name'	=> 'Hops',
-		'desc'	=> 'Click the plus icon to add another hop. <a href="'.get_bloginfo('home').'/wp-admin/edit-tags.php?taxonomy=hops">Manage Hops</a>',
+		'desc'	=> 'Click the plus icon to add another hop. <a href="'.get_bloginfo('url').'/wp-admin/edit-tags.php?taxonomy=hops">Manage Hops</a>',
 		'id'	=> 'hop',
 		'type'	=> 'hop'
 	)
@@ -174,7 +174,7 @@ function beer_recipe_show_box() {
 					else
 						echo '<option value="' . $term->slug . '">' . $term->name . '</option>'; 
                 }
-                echo '</select>', '&nbsp;&nbsp;<span class="description"><a href="'.get_bloginfo('home').'/wp-admin/edit-tags.php?taxonomy=', $field['id'], '&amp;post_type=beer_recipe">Manage ', $field['name'], 's</a></span>';
+                echo '</select>', '&nbsp;&nbsp;<span class="description"><a href="'.get_bloginfo('url').'/wp-admin/edit-tags.php?taxonomy=', $field['id'], '&amp;post_type=beer_recipe">Manage ', $field['name'], 's</a></span>';
 			    break;
             // text
             case 'text':
@@ -273,13 +273,13 @@ $beer_meta_fields = array(
 	),
 	array(
 		'name'	=> 'Restaurants',
-		'desc'	=> 'Click the plus icon to add another Restaurant. <a href="'.get_bloginfo('home').'/wp-admin/edit-tags.php?taxonomy=restaurants">Manage Restaurants</a>',
+		'desc'	=> 'Click the plus icon to add another Restaurant. <a href="'.get_bloginfo('url').'/wp-admin/edit-tags.php?taxonomy=restaurants">Manage Restaurants</a>',
 		'id'	=> 'restaurant',
 		'type'	=> 'restaurant'
 	),
 	array(
 		'name'	=> 'Stores',
-		'desc'	=> 'Click the plus icon to add another Store. <a href="'.get_bloginfo('home').'/wp-admin/edit-tags.php?taxonomy=stores">Manage Stores</a>',
+		'desc'	=> 'Click the plus icon to add another Store. <a href="'.get_bloginfo('url').'/wp-admin/edit-tags.php?taxonomy=stores">Manage Stores</a>',
 		'id'	=> 'store',
 		'type'	=> 'store'
 	)
@@ -374,7 +374,7 @@ function beer_show_box() {
 					else
 						echo '<option value="' . $term->slug . '">' . $term->name . '</option>'; 
                 }
-                echo '</select>', '&nbsp;&nbsp;<span class="description"><a href="'.get_bloginfo('home').'/wp-admin/edit-tags.php?taxonomy=', $field['id'], '&amp;post_type=beer">Manage ', $field['name'], 's</a></span>';
+                echo '</select>', '&nbsp;&nbsp;<span class="description"><a href="'.get_bloginfo('url').'/wp-admin/edit-tags.php?taxonomy=', $field['id'], '&amp;post_type=beer">Manage ', $field['name'], 's</a></span>';
 			    break;
             // text
             case 'text':

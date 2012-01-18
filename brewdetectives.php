@@ -26,12 +26,15 @@ include_once(BREWDETECTIVES_DIR.'php/metabox.php');
 include_once(BREWDETECTIVES_DIR.'php/output.php');
 
 // Styles and Scripts
-if (is_admin()) {
-	wp_enqueue_script('jquery-ui-sortable');
-	wp_enqueue_script( 'suggest' );
-	wp_enqueue_script('brewdetectives_back', BREWDETECTIVES_URL.'js/back.js');
-	wp_enqueue_style('brewdetectives_back', BREWDETECTIVES_URL.'css/back.css');
+function brewdetectives_enqueue_scripts() {
+    if (is_admin()) {
+	    wp_enqueue_script('jquery-ui-sortable');
+	    wp_enqueue_script( 'suggest' );
+	    wp_enqueue_script('brewdetectives_back', BREWDETECTIVES_URL.'js/back.js');
+	    wp_enqueue_style('brewdetectives_back', BREWDETECTIVES_URL.'css/back.css');
+    }
 }
+add_action('init', 'brewdetectives_enqueue_scripts');
 
 // Admin Head Script
 add_action('admin_head', 'add_brewdetectives_script_config');
@@ -79,6 +82,7 @@ add_action( 'init', 'register_taxonomy_breweries' );
 add_action( 'init', 'register_taxonomy_stores' );
 add_action( 'init', 'register_taxonomy_restaurants' );
 add_action( 'init', 'register_taxonomy_beer_descriptor' );
+add_action( 'init', 'register_taxonomy_upcnumbers' );
 
 register_activation_hook( __FILE__, 'activate_brewdetectives_taxonomies' );
 
@@ -98,6 +102,7 @@ function activate_brewdetectives_taxonomies() {
     register_taxonomy_stores();
     register_taxonomy_restaurants();
     register_taxonomy_beer_descriptor();
+    register_taxonomy_upcnumbers();
 	$GLOBALS['wp_rewrite']->flush_rules();
 }
 

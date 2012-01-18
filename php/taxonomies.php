@@ -182,6 +182,7 @@ function register_taxonomy_breweries() {
 	'query_var' 		=> true
 	);
 	register_taxonomy( 'breweries', 'beer', $args );
+	register_taxonomy( 'post_breweries', 'post', $args );
 }
 
 // Add stores taxonomy
@@ -270,6 +271,36 @@ function register_taxonomy_beer_descriptor() {
 	);
 	register_taxonomy( 'beer-descriptor', 'beer', $args );
 }
+
+// Add UPCnos taxonomy
+function register_taxonomy_upcnumbers() {
+	$labels = array( 
+	'name' 				=> _x( 'UPC Number', 'taxonomy general name' ),
+	'singular_name' 	=> _x( 'UPC Numbers', 'taxonomy singular name' ),
+	'search_items'		=> __( 'Search UPC Numbers' ),
+	'popular_items' 	=> __( 'Popular UPC Numbers' ),
+	'all_items'			=> __( 'All UPC Numbers' ),
+	'edit_item' 		=> __( 'Edit UPC Number' ),
+	'update_item' 		=> __( 'Update UPC Number' ),
+	'add_new_item' 		=> __( 'Add New UPC Number' ),
+	'new_item_name' 	=> __( 'New UPC Number' ),
+	'add_or_remove_items' => __( 'Add or remove UPC Number' ),
+	'menu_name' 		=> __( 'UPC Numbers' ),
+	);
+	$args = array( 
+	'labels' 			=> $labels,
+	'public'			=> true,
+	'show_in_nav_menus' => true,
+	'show_ui' 			=> true,
+	'show_tagcloud' 	=> false,
+	'hierarchical'	 	=> false,
+	
+	'rewrite' 			=> true,
+	'query_var' 		=> true
+	);
+	register_taxonomy( 'upcnumbers', 'beer', $args );
+}
+
 
 // Remove Taxonomy Boxes
 function brewdetectives_remove_taxonomy_boxes() {

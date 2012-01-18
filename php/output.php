@@ -15,6 +15,17 @@ function the_brewdetective($content) {
         $content .= '<strong>Final Gravity: </strong>'.beer_recipe('finalgravity').'<br />';
         $content .= '</p>';
     }
+    else if ($queried_post_type == 'beer')
+    {
+        $content .= '<p>';
+        $content .= '<strong>Breweries: </strong>'.beer_recipe('breweries').'<br />';
+        $content .= '<strong>BJCP Style(s): </strong>'.beer_recipe('bjcpstyles').'<br />';
+        $content .= '<strong>ABV: </strong>'.beer_recipe('abv').'<br />';
+        $content .= '<strong>UPC Number(s): </strong>'.beer_recipe('upcnumbers').'<br />';
+        $content .= '<strong>Stores: </strong>'.beer_recipe('stores').'<br />';
+        $content .= '<strong>Restaurants/Bars: </strong>'.beer_recipe('restaurants').'<br />';
+        $content .= '</p>';
+    }
     return $content;
 }
 
@@ -22,5 +33,18 @@ function _add_brewdectives_filter() {
 	add_filter('the_content', 'the_brewdetective');
 }
 add_action('template_redirect', '_add_brewdectives_filter');
+
+function query_post_type($query) {
+  if(is_category() || is_tag()) {
+    $post_type = get_query_var('post_type');
+	if($post_type)
+	    $post_type = $post_type;
+	else
+	    $post_type = array('post','beer_recipe','beer'); // replace cpt to your custom post type
+    $query->set('post_type',$post_type);
+	return $query;
+    }
+}
+add_filter('pre_get_posts', 'query_post_type');
 
 ?>
