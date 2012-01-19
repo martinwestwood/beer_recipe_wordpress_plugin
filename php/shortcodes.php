@@ -14,6 +14,7 @@ function beer_recipes( $atts ) {
 					$time = get_the_time('F j, Y');
 					$permalink = get_permalink();
 					$title = get_the_title();
+					$excerpt = short(get_the_excerpt(), 180);
 					$bloginfo = get_template_directory_uri();
 					if ( has_post_thumbnail()) {
 						$img_src = wp_get_attachment_image_src( get_post_thumbnail_id($GLOBALS['post']->ID), 'size_70_50');
@@ -22,8 +23,8 @@ function beer_recipes( $atts ) {
 					else $thumbnail = '';
 					$default_thumb = $bloginfo.'/images/post_thumb.jpg';
 					$thumbnail = ( $thumbnail == '' ) ? $default_thumb : $thumbnail;
-						$format = '<li><a class="pl_thumb" href="%3$s" rel="bookmark" title="' . __( 'Permanent Link to %4$s', 'volt' ) . '"><img src="%2$s" alt="%4$s"/></a><div class="pl_title"><h5><a href="%3$s" rel="bookmark" title="' . __( 'Permanent Link to %4$s', 'volt' ) . '">%4$s</a></h5></div></li>';
-						$out .= sprintf ($format, $bloginfo, $thumbnail, $permalink, $title);
+						$format = '<li><a class="pl_thumb" href="%3$s" rel="bookmark" title="' . __( 'Permanent Link to %4$s', 'volt' ) . '"><img src="%2$s" alt="%4$s"/></a><div class="pl_title"><h5><a href="%3$s" rel="bookmark" title="' . __( 'Permanent Link to %4$s', 'volt' ) . '">%4$s</a></h5><p>%5$s</p></div></li>';
+						$out .= sprintf ($format, $bloginfo, $thumbnail, $permalink, $title, $excerpt);
 			    endwhile;
                 $out .= '</ul>';
 				return $out;
@@ -41,6 +42,7 @@ function beers( $atts ) {
 					$time = get_the_time('F j, Y');
 					$permalink = get_permalink();
 					$title = get_the_title();
+					$excerpt = short(get_the_excerpt(), 180);
 					$bloginfo = get_template_directory_uri();
 					if ( has_post_thumbnail()) {
 						$img_src = wp_get_attachment_image_src( get_post_thumbnail_id($GLOBALS['post']->ID), 'size_70_50');
@@ -49,8 +51,8 @@ function beers( $atts ) {
 					else $thumbnail = '';
 					$default_thumb = $bloginfo.'/images/post_thumb.jpg';
 					$thumbnail = ( $thumbnail == '' ) ? $default_thumb : $thumbnail;
-						$format = '<li><a class="pl_thumb" href="%3$s" rel="bookmark" title="' . __( 'Permanent Link to %4$s', 'volt' ) . '"><img src="%2$s" alt="%4$s"/></a><div class="pl_title"><h5><a href="%3$s" rel="bookmark" title="' . __( 'Permanent Link to %4$s', 'volt' ) . '">%4$s</a></h5></div></li>';
-						$out .= sprintf ($format, $bloginfo, $thumbnail, $permalink, $title);
+						$format = '<li><a class="pl_thumb" href="%3$s" rel="bookmark" title="' . __( 'Permanent Link to %4$s', 'volt' ) . '"><img src="%2$s" alt="%4$s"/></a><div class="pl_title"><h5><a href="%3$s" rel="bookmark" title="' . __( 'Permanent Link to %4$s', 'volt' ) . '">%4$s</a></h5><p>%5$s</p></div></li>';
+						$out .= sprintf ($format, $bloginfo, $thumbnail, $permalink, $title, $excerpt);
 			    endwhile;
                 $out .= '</ul>';
 				return $out;
