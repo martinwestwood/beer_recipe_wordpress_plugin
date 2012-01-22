@@ -18,13 +18,21 @@ function the_brewdetective($content) {
     else if ($queried_post_type == 'beer')
     {
         $content .= '<p>';
-        $content .= '<strong>Breweries: </strong>'.beer_recipe('breweries').'<br />';
-        $content .= '<strong>BJCP Style(s): </strong>'.beer_recipe('bjcpstyles').'<br />';
-        $content .= '<strong>ABV: </strong>'.beer_recipe('abv').'<br />';
-        $content .= '<strong>UPC Number(s): </strong>'.beer_recipe('upcnumbers').'<br />';
-        $content .= '<strong>Stores: </strong>'.beer_recipe('stores').'<br />';
-        $content .= '<strong>Restaurants/Bars: </strong>'.beer_recipe('restaurants').'<br />';
+        $content .= '<strong>Breweries: </strong>'.beer('breweries').'<br />';
+        $content .= '<strong>BJCP Style(s): </strong>'.beer('bjcpstyles').'<br />';
+        $content .= '<strong>ABV: </strong>'.beer('abv').'<br />';
+        $content .= '<strong>UPC Number(s): </strong>'.beer('upcnumbers').'<br />';
+        $content .= '<strong>Stores: </strong>'.beer('stores').'<br />';
+        $content .= '<strong>Restaurants/Bars: </strong>'.beer('restaurants').'<br />';
         $content .= '</p>';
+        
+        $beer_review = beer('review'); 
+        if ($beer_review != '')
+        {
+            $content .= '<p>';
+            $content .= '<strong>Review: </strong></br>'.$beer_review.'<br />';
+            $content .= '</p>';
+        }
     }
     return $content;
 }

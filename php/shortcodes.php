@@ -6,7 +6,7 @@ function register_brewdetectives_shortcodes() {
 
 function beer_recipes( $atts ) {
 	extract( shortcode_atts( array(), $atts ) );
-	$args = array( 'post_type' => 'beer_recipe', 'posts_per_page' => 10 );
+	$args = array( 'post_type' => 'beer_recipe', 'posts_per_page' => 5 );
 	$sq = new WP_Query( $args );
     if ($sq->have_posts()) :
 	$out = '<ul class="post_list">'; 
@@ -14,7 +14,7 @@ function beer_recipes( $atts ) {
 					$time = get_the_time('F j, Y');
 					$permalink = get_permalink();
 					$title = get_the_title();
-					$excerpt = short(get_the_excerpt(), 180);
+					$excerpt = beer_short(get_the_excerpt(), 180);
 					$bloginfo = get_template_directory_uri();
 					if ( has_post_thumbnail()) {
 						$img_src = wp_get_attachment_image_src( get_post_thumbnail_id($GLOBALS['post']->ID), 'size_70_50');
@@ -34,7 +34,7 @@ function beer_recipes( $atts ) {
 
 function beers( $atts ) {
 	extract( shortcode_atts( array(), $atts ) );
-	$args = array( 'post_type' => 'beer', 'posts_per_page' => 10 );
+	$args = array( 'post_type' => 'beer', 'posts_per_page' => 5 );
 	$sq = new WP_Query( $args );
     if ($sq->have_posts()) :
 	$out = '<ul class="post_list">'; 
@@ -42,7 +42,7 @@ function beers( $atts ) {
 					$time = get_the_time('F j, Y');
 					$permalink = get_permalink();
 					$title = get_the_title();
-					$excerpt = short(get_the_excerpt(), 180);
+					$excerpt = beer_short(get_the_excerpt(), 180);
 					$bloginfo = get_template_directory_uri();
 					if ( has_post_thumbnail()) {
 						$img_src = wp_get_attachment_image_src( get_post_thumbnail_id($GLOBALS['post']->ID), 'size_70_50');

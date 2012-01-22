@@ -258,8 +258,19 @@ function beer_add_box() {
 
 // Beer Custom Fields
 $beer_meta_fields = array(
+	array(
+		'name'	=> __('Beer Review', 'beer'),
+		'desc'	=> __('Our review of the beer.', 'beer'),
+		'place'	=> '',
+		'size'	=> 'small',
+		'id'	=> 'review',
+		'type'	=> 'textarea'
+	),
     array(
 		'name'	=> 'BJCP Style',
+		'desc'	=> '',
+		'place'	=> '',
+		'size'	=> 'small',
 		'id'	=> 'bjcpstyles',
 		'type'	=> 'tax_select'
 	),
@@ -274,12 +285,16 @@ $beer_meta_fields = array(
 	array(
 		'name'	=> 'Restaurants',
 		'desc'	=> 'Click the plus icon to add another Restaurant. <a href="'.get_bloginfo('url').'/wp-admin/edit-tags.php?taxonomy=restaurants">Manage Restaurants</a>',
+		'place'	=> '',
+		'size'	=> 'small',
 		'id'	=> 'restaurant',
 		'type'	=> 'restaurant'
 	),
 	array(
 		'name'	=> 'Stores',
 		'desc'	=> 'Click the plus icon to add another Store. <a href="'.get_bloginfo('url').'/wp-admin/edit-tags.php?taxonomy=stores">Manage Stores</a>',
+		'place'	=> '',
+		'size'	=> 'small',
 		'id'	=> 'store',
 		'type'	=> 'store'
 	)
@@ -294,6 +309,12 @@ function beer_show_box() {
 	echo '<div id="beer_table"><table class="form-table">';
     foreach ($beer_meta_fields as $field) {
 	    // get current post meta data
+		$name = $field['name'];
+		$desc = $field['desc'];
+		$place = $field['place'];
+		$size = $field['size'];
+		$id = $field['id'];
+		$type = $field['type'];
         $meta = get_post_meta($post->ID, $field['id'], true);
         echo '<tr>',
                 '<th style="width:20%"><label for="', $field['id'], '">', $field['name'], '</label></th>',
@@ -380,6 +401,11 @@ function beer_show_box() {
             case 'text':
                 echo '<input type="text" name="', $field['id'], '" id="', $field['id'], '" value="', $meta ,'" class="text-', $field['size'] ,'" size="30" placeholder="', $field['place'], '" />', '&nbsp;&nbsp;<span class="description">', $field['desc'], '</span>';
                 break;
+			// textarea
+            case 'textarea':
+                echo '<textarea name="'.$id.'" id="'.$id.'" cols="120" rows="8" class="text-'.$size.'">'.$meta.'</textarea>', 
+						'&nbsp;&nbsp;<span class="description">'.$desc.'</span>';
+            break;
             // checkbox
             case 'checkbox':
                 echo '<input type="checkbox" name="', $field['id'], '" id="', $field['id'], '"', $meta ? ' checked="checked"' : '', ' /> <label for="', $field['id'], '">', $field['desc'], '</label>';
